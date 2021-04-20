@@ -16,7 +16,7 @@
 "                " to set a preferred indent level when detection is
 "                " impossible:
 "                :let g:detectindent_preferred_indent = 4
-"                
+"
 "                " To use preferred values instead of guessing:
 "                :let g:detectindent_preferred_when_mixed = 1
 "
@@ -163,7 +163,11 @@ fun! <SID>DetectIndent()
         elseif l:longest_leading_spaces_run <= 4
             let &l:tabstop = 4
         else
-            let &l:tabstop = 8
+            if s:GetValue("detectindent_max_indent")
+                let &l:shiftwidth = g:detectindent_max_indent
+            else
+                let &l:shiftwidth = 8
+            endif
         endif
 
     else
